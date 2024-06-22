@@ -1,20 +1,44 @@
 // import './style.css'
 
-console.log('connected');
-
-const TodoItem = (newTitle, newDescription) => {
-  const title = newTitle;
-  const description = newDescription;
-
+const TodoItem = (title, description, dueDate, priority) => {
   function printInfo() {
-    console.log(`${title}: ${description}`);
+    console.log(`${this.title}\n${this.description}\ndue: ${this.dueDate}\npriority: ${this.priority}`);
   }
 
   return {
+    title,
+    description,
+    dueDate,
+    priority,
     printInfo
   }
 }
 
-const newItem = TodoItem('new title', 'new description');
+const Project = (name, description) => {
+  const tasks = []
 
-newItem.printInfo();
+  function addTask(task) {
+    this.tasks.push(task)
+  }
+
+  function displayProject() {
+    console.log(`Project: ${name}\nDescription: ${description}\ntasks:\n`)
+    this.tasks.forEach(task => task.printInfo());
+  }
+
+  return {
+    tasks,
+    addTask,
+    displayProject
+  }
+}
+
+const movingHouse = Project('MOVING', 'this fall!!')
+const packing = TodoItem('packing', "don't forget kitchen stuff!", '10-10-2030', 'urgent');
+const donateStuff = TodoItem('donate stuff!', "old clothes, etc.", '10-9-2030', 'urgent');
+
+movingHouse.addTask(packing);
+movingHouse.addTask(donateStuff)
+
+movingHouse.displayProject();
+
