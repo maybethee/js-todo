@@ -6,6 +6,53 @@
   <title>Todo</title>
 </head>
 <body>
+
+  <header>
+    <button id="new-task">New Task</button>
+  </header>
+
+  <dialog id="newTaskDialog">
+    <form>
+      <p>
+        <label>
+          Title:
+          <input type="text" id="title" name="title" minlength="1" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Description:
+          <input type="textarea" id="description" name="description" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Due Date:
+          <!-- change to real datetime type -->
+          <input type="text" id="dueDate" name="dueDate" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Priority:
+        </label>
+        <select id="priority" name="priority">
+          <option value="urgent">Urgent</option>
+          <option value="notUrgent">Not Urgent</option>
+        </select>
+      </p>
+
+
+      <div>
+        <button value="cancel" formmethod="dialog">Cancel</button>
+        <button id="confirmBtn" value="default">Add</button>
+      </div>
+    </form>
+  </dialog>
   
+  <div id="content"></div>
 </body>
 </html>
