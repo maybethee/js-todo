@@ -8,30 +8,52 @@
 <body>
 
   <header>
+    <button id="new-project">New Project</button>
     <button id="new-task">New Task</button>
   </header>
 
-  <dialog id="newTaskDialog">
+  <dialog id="newProjectDialog">
     <form>
       <p>
         <label>
-          Title:
-          <input type="text" id="title" name="title" minlength="1" />
+          Name:
+          <input type="text" id="projectName" name="projectName" minlength="1" />
         </label>
       </p>
 
       <p>
         <label>
           Description:
-          <input type="textarea" id="description" name="description" />
+          <input type="textarea" id="projectDescription" name="projectDescription" />
+        </label>
+      </p>
+      <div>
+        <button value="cancel" formmethod="dialog">Cancel</button>
+        <button id="confirmProjectBtn" value="default">Add</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="newTaskDialog">
+    <form>
+      <p>
+        <label>
+          Title:
+          <input type="text" id="taskTitle" name="taskTitle" minlength="1" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Description:
+          <input type="textarea" id="taskDescription" name="taskDescription" />
         </label>
       </p>
 
       <p>
         <label>
           Due Date:
-          <!-- change to real datetime type -->
-          <input type="text" id="dueDate" name="dueDate" />
+          <input type="text" id="taskDueDate" name="taskDueDate" />
         </label>
       </p>
 
@@ -39,20 +61,19 @@
         <label>
           Priority:
         </label>
-        <select id="priority" name="priority">
+        <select id="taskPriority" name="taskPriority">
           <option value="urgent">Urgent</option>
           <option value="notUrgent">Not Urgent</option>
         </select>
       </p>
 
-
       <div>
         <button value="cancel" formmethod="dialog">Cancel</button>
-        <button id="confirmBtn" value="default">Add</button>
+        <button id="confirmTaskBtn" value="default">Add</button>
       </div>
     </form>
   </dialog>
-  
+
   <div id="content"></div>
 </body>
 </html>

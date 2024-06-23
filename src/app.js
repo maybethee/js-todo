@@ -3,12 +3,16 @@
 const User = () => {
   const projects = [];
 
-  function addProject(project) {
-      projects.push(project)
+  function addProject(formData) {
+    const newProject = Project(formData.name, formData.description);
+    console.log(`new project name: ${newProject.name},\nNew project description: ${newProject.description}`)
+    
+    projects.push(newProject)
+    console.log(`${projects[0]}`)
   }
   
-  function displayAllProjects(projectArr) {
-    projectArr.forEach(project => console.log(`Project: ${project.name}\nDescription: ${project.description}`));
+  function displayAllProjects() {
+    projects.forEach(project => console.log(`Project: ${project.name}\nDescription: ${project.description}`));
   }
   
   function displayAll() {
