@@ -1,0 +1,18 @@
+body {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+}
+
+#projects-container {
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  background-color: lightcoral;
+}
+
+
+
+#tasks-container {
+  background-color: lightcyan;
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+}

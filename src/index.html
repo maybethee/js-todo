@@ -6,11 +6,10 @@
   <title>Todo</title>
 </head>
 <body>
-
-  <header>
+  <div id="projects-container">
     <button id="new-project">New Project</button>
-    <button id="new-task">New Task</button>
-  </header>
+    <div id="projects"></div>
+  </div>
 
   <dialog id="newProjectDialog">
     <form>
@@ -74,6 +73,14 @@
     </form>
   </dialog>
 
-  <div id="content"></div>
+  
+  <div id="tasks-container">
+    <div id="tasks-header">
+      <h2 id="current-project-name"></h2>
+      <p id="current-project-description"></p>
+      <button id="new-task">New Task</button>
+    </div>
+    <div id="content"></div>
+  </div>
 </body>
 </html>

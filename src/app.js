@@ -1,14 +1,22 @@
-// import './style.css'
-
 const User = () => {
+  let newProjectId = 1;
   const projects = [];
 
+  let currentProjectId = null;
+
+  function setCurrentProject(id) {
+    currentProjectId = id - 1;
+  }
+
+  function getCurrentProject() {
+    return projects[currentProjectId];
+  }
+
   function addProject(formData) {
-    const newProject = Project(formData.name, formData.description);
+    const newProject = Project(formData.name, formData.description, newProjectId++);
     console.log(`new project name: ${newProject.name},\nNew project description: ${newProject.description}`)
     
-    projects.push(newProject)
-    console.log(`${projects[0]}`)
+    projects.push(newProject);
   }
   
   function displayAllProjects() {
@@ -27,20 +35,29 @@ const User = () => {
   function deleteProject(projectId) {
     projects.splice(projectId, 1)
   }
+
+  (function addDefaultProject() {
+    const defaultProject = Project("Personal", "Your first project", newProjectId++);
+    projects.push(defaultProject);
+    setCurrentProject(1);
+  })();
   
   return {
     projects,
+    currentProjectId,
+    setCurrentProject,
+    getCurrentProject,
     addProject,
     displayAllProjects,
     displayAll
   }
 }
 
-const TodoItem = (title, description, dueDate, priority) => {
+const Task = (title, description, dueDate, priority, id) => {
   function printTaskInfo() {
     console.log(`${this.title}\n${this.description}\ndue: ${this.dueDate}\npriority: ${this.priority}`);
 
-    return `${this.title}<br>${this.description}<br>due: ${this.dueDate}<br>priority: ${this.priority}`;
+    return `${this.title}\n${this.description}\ndue: ${this.dueDate}\npriority: ${this.priority}`;
   }
 
   function editTaskInfo(newTaskValues) {
@@ -53,6 +70,7 @@ const TodoItem = (title, description, dueDate, priority) => {
   }
 
   return {
+    id,
     title,
     description,
     dueDate,
@@ -62,12 +80,13 @@ const TodoItem = (title, description, dueDate, priority) => {
   }
 }
 
-const Project = (name, description) => {
+const Project = (name, description, id) => {
+  let newTaskId = 1;
   const tasks = [];
 
   function addTask(formData) {
     // this should be done more dynamically
-    const newTask = TodoItem(formData.title, formData.description, formData.dueDate, formData.priority)
+    const newTask = Task(formData.title, formData.description, formData.dueDate, formData.priority, newTaskId++)
     this.tasks.push(newTask);
   }
 
@@ -94,6 +113,7 @@ const Project = (name, description) => {
   }
 
   return {
+    id,
     name,
     description,
     tasks,
@@ -105,4 +125,4 @@ const Project = (name, description) => {
   }
 }
 
-export { User, TodoItem, Project }
+export { User, Task, Project }
