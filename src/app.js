@@ -1,6 +1,5 @@
 import { format, parseISO } from "date-fns";
 
-
 const User = () => {
   let newProjectId = 1;
   const projects = [];
@@ -56,6 +55,56 @@ const User = () => {
   }
 }
 
+const Project = (name, description, id) => {
+  let newTaskId = 1;
+  const tasks = [];
+
+  function addTask(formData) {
+    // this should maybe be done more dynamically
+    const newTask = Task(formData.title, formData.description, formData.dueDate, formData.priority, newTaskId++)
+
+    this.tasks.push(newTask);
+  }
+
+  function displayProjectInfo() {
+    console.log(`Project: ${this.name}\nDescription: ${this.description}`);
+    return `Project: ${this.name}\nDescription: ${this.description}`;
+  }
+
+  function editProjectInfo(newValues) {
+    for (let key in newValues) {
+      if (this.hasOwnProperty(key)) {
+        this[key] = newValues[key];
+      }
+    }
+  }
+
+  function logProjectTasks() {
+    // list tasks in its project's array
+    this.tasks.forEach(task => task.printTaskInfo());
+  }
+
+  function deleteTask(taskId) {
+    const index = this.tasks.findIndex(task => task.id === taskId);
+    
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
+    }
+  }
+
+  return {
+    id,
+    name,
+    description,
+    tasks,
+    addTask,
+    displayProjectInfo,
+    editProjectInfo,
+    deleteTask,
+    logProjectTasks
+  }
+}
+
 const Task = (title, description, dueDate, priority, id) => {
   function printBasicTaskInfo() {
     console.log(`${this.title}\ndue: ${this.dueDate}`);
@@ -90,49 +139,4 @@ const Task = (title, description, dueDate, priority, id) => {
   }
 }
 
-const Project = (name, description, id) => {
-  let newTaskId = 1;
-  const tasks = [];
-
-  function addTask(formData) {
-    // this should be done more dynamically
-    const newTask = Task(formData.title, formData.description, formData.dueDate, formData.priority, newTaskId++)
-    this.tasks.push(newTask);
-  }
-
-  function displayProjectInfo() {
-    console.log(`Project: ${this.name}\nDescription: ${this.description}`);
-    return `Project: ${this.name}\nDescription: ${this.description}`;
-  }
-
-  function editProjectInfo(newValues) {
-    for (let key in newValues) {
-      if (this.hasOwnProperty(key)) {
-        this[key] = newValues[key];
-      }
-    }
-  }
-
-  function logProjectTasks() {
-    // list tasks in that project's array
-    this.tasks.forEach(task => task.printTaskInfo());
-  }
-
-  function deleteTask(taskId) {
-    this.tasks.splice(taskId, 1);
-  }
-
-  return {
-    id,
-    name,
-    description,
-    tasks,
-    addTask,
-    displayProjectInfo,
-    editProjectInfo,
-    deleteTask,
-    logProjectTasks
-  }
-}
-
-export { User, Task, Project }
+export { User, Project, Task }

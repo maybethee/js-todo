@@ -1,4 +1,4 @@
-import {  User, Task, Project } from "./app";
+import {  User, Project, Task } from "./app";
 import './style.css'
 
 const ScreenController = () => {
@@ -47,7 +47,7 @@ const ScreenController = () => {
   
   confirmTaskBtn.addEventListener("click", (event) => {
     event.preventDefault();
-  
+
     // return form info
     getTaskFormInfo();
     
@@ -103,59 +103,49 @@ const ScreenController = () => {
     displayProjectTasks(currentUser.getCurrentProject());
   }
 
+  function createTaskElement(task) {
+    const newTaskElement = document.createElement('button');
+    newTaskElement.innerHTML = task.printBasicTaskInfo();
+    
+    newTaskElement.addEventListener('click', () => {
+      extraTaskInfo.classList.toggle("hide-extra-info");
+    });
+  }
+  
+  function createTaskDeleteButton(task, project) {
+    const deleteTaskBtn = document.createElement('button');
+    deleteTaskBtn.innerHTML = 'X';
+    
+    deleteTaskBtn.addEventListener('click', () => {
+      project.deleteTask(task.id);
+      displaySelectedProject(project);
+    });
+  }
+  
   function displayProjectTasks(project) {
     taskList.textContent = '';
+    
     project.tasks.forEach(task => {
-      const newTaskElement = document.createElement('button');
-
-      newTaskElement.classList.add("task")
+      const newTaskContainer = document.createElement('div');
+      const extraTaskInfo = document.createElement("p");
   
-      newTaskElement.innerHTML = task.printBasicTaskInfo();
-
-
-
-
-
-      
-      
-      
-      
-      
-      
-      const extraTaskInfo = document.createElement("p")
-      extraTaskInfo.classList.add("hide-extra-info")
+      newTaskContainer.classList.add("task-container");
+      extraTaskInfo.classList.add("hide-extra-info");
+  
+      const newTaskElement = createTaskElement(task);
+      const deleteTaskBtn = createTaskDeleteButton(task, project);
+  
       extraTaskInfo.innerHTML = task.printExtraTaskInfo();
-      
-      newTaskElement.addEventListener('click', () => {
-        extraTaskInfo.classList.toggle("hide-extra-info")
-      })
-
-      // const extraTaskInfoBtn = document.createElement("button");
-      // extraTaskInfoBtn.innerHTML = "Expand"
-
-      // extraTaskInfoBtn.addEventListener('click', () => {
-      //   extraTaskInfo.classList.toggle("hide-extra-info")
-      // })
-
-
-      // newTaskElement.append(extraTaskInfoBtn, extraTaskInfo)
+  
       newTaskElement.appendChild(extraTaskInfo);
-      taskList.appendChild(newTaskElement);
-    })
+      newTaskContainer.append(newTaskElement, deleteTaskBtn);
+      taskList.appendChild(newTaskContainer);
+    });
   }
 
   // set up initial default display
   displayProjects(currentUser.projects);
   displaySelectedProject(currentUser.getCurrentProject());
-
-  return {
-    taskList,
-    newTaskBtn,
-    getProjectFormInfo,
-    getTaskFormInfo,
-    displayProjects,
-    displayProjectTasks
-  }
 }
 
 const screen = ScreenController();

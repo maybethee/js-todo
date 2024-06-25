@@ -21,7 +21,7 @@ body {
   gap: 1rem;
 }
 
-.task {
+.task-container {
   background-color: #fafad2;
   border: none;
   text-align: left;
@@ -38,4 +38,8 @@ body {
 
 .hide-extra-info {
   display: none;
+}
+
+.delete-task-btn {
+  color: red;
 }
