@@ -1,3 +1,6 @@
+import { format, parseISO } from "date-fns";
+
+
 const User = () => {
   let newProjectId = 1;
   const projects = [];
@@ -54,10 +57,16 @@ const User = () => {
 }
 
 const Task = (title, description, dueDate, priority, id) => {
-  function printTaskInfo() {
-    console.log(`${this.title}\n${this.description}\ndue: ${this.dueDate}\npriority: ${this.priority}`);
+  function printBasicTaskInfo() {
+    console.log(`${this.title}\ndue: ${this.dueDate}`);
+    
+    return `${this.title}<br>due: ${format(parseISO(this.dueDate), "EEE, MMM d, yyyy")}`
+  }
 
-    return `${this.title}\n${this.description}\ndue: ${this.dueDate}\npriority: ${this.priority}`;
+  function printExtraTaskInfo() {
+    console.log(`${this.description}<br>priority: ${this.priority}`)
+
+    return `${this.description}<br>priority: ${this.priority}`
   }
 
   function editTaskInfo(newTaskValues) {
@@ -76,7 +85,8 @@ const Task = (title, description, dueDate, priority, id) => {
     dueDate,
     priority,
     editTaskInfo,
-    printTaskInfo
+    printBasicTaskInfo,
+    printExtraTaskInfo
   }
 }
 

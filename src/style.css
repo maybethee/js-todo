@@ -9,10 +9,33 @@ body {
   background-color: lightcoral;
 }
 
-
-
 #tasks-container {
   background-color: lightcyan;
   display: grid;
   grid-template-rows: 1fr 10fr;
+}
+
+#task-list {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+}
+
+.task {
+  background-color: #fafad2;
+  border: none;
+  text-align: left;
+  vertical-align: top;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.task:hover {
+  cursor: pointer;
+  background-color: #ededa4;
+}
+
+.hide-extra-info {
+  display: none;
 }

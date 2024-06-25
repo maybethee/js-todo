@@ -5,7 +5,7 @@ const ScreenController = () => {
   const currentUser = User();
 
   // DOM elements
-  const contentDiv = document.querySelector("#content");
+  const taskList = document.querySelector("#task-list");
   const projectsDiv = document.querySelector("#projects");
   const newProjectBtn = document.querySelector("#new-project");
   const newProjectDialog = document.getElementById("newProjectDialog");
@@ -104,13 +104,43 @@ const ScreenController = () => {
   }
 
   function displayProjectTasks(project) {
-    contentDiv.textContent = '';
+    taskList.textContent = '';
     project.tasks.forEach(task => {
-      const newTaskElement = document.createElement('p');
+      const newTaskElement = document.createElement('button');
+
+      newTaskElement.classList.add("task")
   
-      newTaskElement.textContent = task.printTaskInfo();
-  
-      contentDiv.appendChild(newTaskElement);
+      newTaskElement.innerHTML = task.printBasicTaskInfo();
+
+
+
+
+
+      
+      
+      
+      
+      
+      
+      const extraTaskInfo = document.createElement("p")
+      extraTaskInfo.classList.add("hide-extra-info")
+      extraTaskInfo.innerHTML = task.printExtraTaskInfo();
+      
+      newTaskElement.addEventListener('click', () => {
+        extraTaskInfo.classList.toggle("hide-extra-info")
+      })
+
+      // const extraTaskInfoBtn = document.createElement("button");
+      // extraTaskInfoBtn.innerHTML = "Expand"
+
+      // extraTaskInfoBtn.addEventListener('click', () => {
+      //   extraTaskInfo.classList.toggle("hide-extra-info")
+      // })
+
+
+      // newTaskElement.append(extraTaskInfoBtn, extraTaskInfo)
+      newTaskElement.appendChild(extraTaskInfo);
+      taskList.appendChild(newTaskElement);
     })
   }
 
@@ -119,7 +149,7 @@ const ScreenController = () => {
   displaySelectedProject(currentUser.getCurrentProject());
 
   return {
-    contentDiv,
+    taskList,
     newTaskBtn,
     getProjectFormInfo,
     getTaskFormInfo,
