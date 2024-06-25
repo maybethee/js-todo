@@ -110,30 +110,32 @@ const ScreenController = () => {
     newTaskElement.addEventListener('click', () => {
       extraTaskInfo.classList.toggle("hide-extra-info");
     });
+    return newTaskElement;
   }
   
-  function createTaskDeleteButton(task, project) {
+  function createDeleteTaskButton(task, project) {
     const deleteTaskBtn = document.createElement('button');
     deleteTaskBtn.innerHTML = 'X';
-    
+
     deleteTaskBtn.addEventListener('click', () => {
       project.deleteTask(task.id);
       displaySelectedProject(project);
     });
+    return deleteTaskBtn;
   }
-  
+
   function displayProjectTasks(project) {
     taskList.textContent = '';
     
     project.tasks.forEach(task => {
       const newTaskContainer = document.createElement('div');
       const extraTaskInfo = document.createElement("p");
-  
+
       newTaskContainer.classList.add("task-container");
       extraTaskInfo.classList.add("hide-extra-info");
-  
+
       const newTaskElement = createTaskElement(task);
-      const deleteTaskBtn = createTaskDeleteButton(task, project);
+      const deleteTaskBtn = createDeleteTaskButton(task, project);
   
       extraTaskInfo.innerHTML = task.printExtraTaskInfo();
   
@@ -141,11 +143,20 @@ const ScreenController = () => {
       newTaskContainer.append(newTaskElement, deleteTaskBtn);
       taskList.appendChild(newTaskContainer);
     });
-  }
+  }  
 
   // set up initial default display
   displayProjects(currentUser.projects);
   displaySelectedProject(currentUser.getCurrentProject());
+
+  return {
+    taskList,
+    newTaskBtn,
+    getProjectFormInfo,
+    getTaskFormInfo,
+    displayProjects,
+    displayProjectTasks
+  }
 }
 
 const screen = ScreenController();
