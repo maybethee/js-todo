@@ -7,11 +7,11 @@ const User = () => {
   let currentProjectId = null;
 
   function setCurrentProject(id) {
-    currentProjectId = id - 1;
+    currentProjectId = id;
   }
 
   function getCurrentProject() {
-    return projects[currentProjectId];
+    return projects.find(project => project.id === currentProjectId);
   }
 
   function addProject(formData) {
@@ -35,7 +35,10 @@ const User = () => {
   }
   
   function deleteProject(projectId) {
-    projects.splice(projectId, 1)
+    const index = projects.findIndex(project => project.id === projectId);
+    if (index !== -1) {
+      projects.splice(index, 1);
+    }
   }
 
   (function addDefaultProject() {
@@ -51,7 +54,8 @@ const User = () => {
     getCurrentProject,
     addProject,
     displayAllProjects,
-    displayAll
+    displayAll,
+    deleteProject
   }
 }
 
@@ -86,7 +90,7 @@ const Project = (name, description, id) => {
 
   function deleteTask(taskId) {
     const index = this.tasks.findIndex(task => task.id === taskId);
-    
+
     if (index !== -1) {
       this.tasks.splice(index, 1);
     }
