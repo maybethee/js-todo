@@ -124,6 +124,7 @@ const Task = (title, description, dueDate, priority, id) => {
 
   function editTaskInfo(newTaskValues) {
     // newValues is the saved object from future edit form fields
+
     for (let key in newTaskValues) {
       if (this.hasOwnProperty(key)) {
         this[key] = newTaskValues[key];
