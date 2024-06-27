@@ -28,7 +28,7 @@
       </p>
       <div>
         <button id="cancelProjectBtn" value="cancel" formmethod="dialog">Cancel</button>
-        <button id="confirmProjectBtn" value="default">Add</button>
+        <button id="confirmProjectBtn" value="default">Confirm</button>
       </div>
     </form>
   </dialog>
@@ -61,8 +61,9 @@
           Priority:
         </label>
         <select id="taskPriority" name="taskPriority">
-          <option value="urgent">Urgent</option>
-          <option value="notUrgent">Not Urgent</option>
+          <option value="high">High</option>
+          <option value="med">Medium</option>
+          <option value="low">Low</option>
         </select>
       </p>
 
@@ -78,6 +79,7 @@
       <h2 id="current-project-name"></h2>
       <p id="current-project-description"></p>
       <button id="new-task">New Task</button>
+      <button id="edit-project">Edit Project Details</button>
       <button id="delete-project">Delete Project</button>
     </div>
     <div id="task-list"></div>

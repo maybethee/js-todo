@@ -116,15 +116,14 @@ const Task = (title, description, dueDate, priority, id) => {
     return `${this.title}<br>due: ${format(parseISO(this.dueDate), "EEE, MMM d, yyyy")}`
   }
 
-  function printExtraTaskInfo() {
+  function printTaskDescription() {
     console.log(`${this.description}<br>priority: ${this.priority}`)
 
-    return `${this.description}<br>priority: ${this.priority}`
+    return `${this.description}<br>`
   }
 
   function editTaskInfo(newTaskValues) {
     // newValues is the saved object from future edit form fields
-
     for (let key in newTaskValues) {
       if (this.hasOwnProperty(key)) {
         this[key] = newTaskValues[key];
@@ -140,7 +139,7 @@ const Task = (title, description, dueDate, priority, id) => {
     priority,
     editTaskInfo,
     printBasicTaskInfo,
-    printExtraTaskInfo
+    printTaskDescription
   }
 }
 

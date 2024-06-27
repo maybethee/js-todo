@@ -3,6 +3,11 @@ body {
   grid-template-columns: 2fr 5fr;
 }
 
+
+button:hover {
+  cursor: pointer;
+}
+
 #projects-container {
   display: grid;
   grid-template-rows: 1fr 10fr;
@@ -21,7 +26,7 @@ body {
   gap: 1rem;
 }
 
-.task-container {
+#task-list {
   background-color: #fafad2;
   border: none;
   text-align: left;
@@ -31,12 +36,19 @@ body {
   justify-content: flex-start;
 }
 
-.task:hover {
-  cursor: pointer;
-  background-color: #ededa4;
+.high {
+  background-color: red;
 }
 
-.hide-extra-info {
+.med {
+  background-color: orange;
+}
+
+.low {
+  background-color: yellow;
+}
+
+.hide-description {
   display: none;
 }
 

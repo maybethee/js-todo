@@ -11,15 +11,18 @@ const ScreenController = () => {
   const newProjectDialog = document.getElementById("newProjectDialog");
   const confirmProjectBtn = document.getElementById('confirmProjectBtn');
   const cancelProjectBtn = document.getElementById('cancelProjectBtn');
+  const deleteProjectBtn = document.querySelector('#delete-project');
+  const editProjectBtn = document.querySelector('#edit-project');
   const newTaskBtn = document.querySelector("#new-task");
   const newTaskDialog = document.getElementById("newTaskDialog");
   const confirmTaskBtn = document.getElementById('confirmTaskBtn');
   const cancelTaskBtn = document.getElementById('cancelTaskBtn')
   const currentProjectName = document.querySelector("#current-project-name");
   const currentProjectDescription = document.querySelector("#current-project-description");
-  const deleteProjectBtn = document.querySelector('#delete-project')
 
   let taskBeingEdited = null;
+  let projectBeingEdited = null;
+
 
   // showModal buttons
   newProjectBtn.addEventListener("click", () => {
@@ -34,34 +37,33 @@ const ScreenController = () => {
   confirmProjectBtn.addEventListener("click", (event) => {
     event.preventDefault();
 
-    getProjectFormInfo();
-
-    // add project
-    currentUser.addProject(getProjectFormInfo());
-
-    // sets current project to new project
-    currentUser.setCurrentProject(currentUser.projects.slice(-1)[0].id);
+    // if there is an existing project passed, edit using the form info
+    if (projectBeingEdited) {
+      projectBeingEdited.editProjectInfo(getProjectFormInfo());
+    } else {
+      currentUser.addProject(getProjectFormInfo());
+      // sets current project to new project
+      currentUser.setCurrentProject(currentUser.projects.slice(-1)[0].id);
+    }
 
     // refresh list of projects
     projectsDiv.textContent = '';
     displayProjects(currentUser.projects);
     displaySelectedProject(currentUser.getCurrentProject().id)
 
+    projectBeingEdited = null;
     clearFormFields();
 
-    // currentUser.displayAllProjects();
     newProjectDialog.close();
   });
 
   cancelProjectBtn.addEventListener('click', () => {
+    projectBeingEdited = null;
     clearFormFields();
   })
 
   confirmTaskBtn.addEventListener("click", (event) => {
     event.preventDefault();
-
-    // return form info
-    getTaskFormInfo();
 
     // if there is an existing task passed, edit using the form info
     if (taskBeingEdited) {
@@ -78,57 +80,16 @@ const ScreenController = () => {
   });
 
   cancelTaskBtn.addEventListener('click', () => {
+    taskBeingEdited = null;
     clearFormFields();
   })
 
-  function clearFormFields() {
-    document.getElementById('projectName').value = '';
-    document.getElementById('projectDescription').value = '';
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    document.getElementById('taskDueDate').value = '';
-    document.getElementById('taskPriority').value = 'urgent';
-  }
-
-  function fillTaskFormInfo(task) {
-    document.getElementById('taskTitle').value = task.title;
-    document.getElementById('taskDescription').value = task.description;
-    document.getElementById('taskDueDate').value = task.dueDate;
-    document.getElementById('taskPriority').value = task.priority;
-  }
-
-  function getProjectFormInfo() {
-    const name = document.getElementById('projectName').value;
-    const description = document.getElementById('projectDescription').value;
-
-    return { name, description };
-  }
-
-  function getTaskFormInfo() {
-    const title = document.getElementById('taskTitle').value;
-    const description = document.getElementById('taskDescription').value;
-    const dueDate = document.getElementById('taskDueDate').value;
-    const priority = document.getElementById('taskPriority').value;
-
-    return { title, description, dueDate, priority };
-  }
-
-  function displayProjects(projectArr) {
-    projectsDiv.textContent = '';
-    projectArr.forEach(project => {
-      const newProjectElement = document.createElement('button');
-      newProjectElement.setAttribute('id', project.id);
-      newProjectElement.setAttribute('class', `project-btn`);
-
-      newProjectElement.textContent = project.name;
-
-      projectsDiv.appendChild(newProjectElement);
-
-      newProjectElement.addEventListener('click', () => {
-        displaySelectedProject(project.id);
-      })
-    })
-  }
+  // project manipulation buttons
+  editProjectBtn.addEventListener('click', () => {
+    projectBeingEdited = currentUser.getCurrentProject();
+    fillProjectFormInfo(projectBeingEdited)
+    newProjectDialog.showModal();
+  })
 
   deleteProjectBtn.addEventListener('click', () => {
 
@@ -154,10 +115,67 @@ const ScreenController = () => {
     }
   });
 
+  // form info functions
+  function clearFormFields() {
+    document.getElementById('projectName').value = '';
+    document.getElementById('projectDescription').value = '';
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+    document.getElementById('taskDueDate').value = '';
+    document.getElementById('taskPriority').value = 'high';
+  }
+  
+  function fillProjectFormInfo(project) {
+    document.getElementById('projectName').value = project.name;
+    document.getElementById('projectDescription').value = project.description;
+  }
+
+  function fillTaskFormInfo(task) {
+    document.getElementById('taskTitle').value = task.title;
+    document.getElementById('taskDescription').value = task.description;
+    document.getElementById('taskDueDate').value = task.dueDate;
+    document.getElementById('taskPriority').value = task.priority;
+  }
+
+  function getProjectFormInfo() {
+    const name = document.getElementById('projectName').value;
+    const description = document.getElementById('projectDescription').value;
+
+    return { name, description };
+  }
+
+  function getTaskFormInfo() {
+    const title = document.getElementById('taskTitle').value;
+    const description = document.getElementById('taskDescription').value;
+    const dueDate = document.getElementById('taskDueDate').value;
+    const priority = document.getElementById('taskPriority').value;
+
+    return { title, description, dueDate, priority };
+  }
+
+  // other display functions
+  function displayProjects(projectArr) {
+    projectsDiv.textContent = '';
+    projectArr.forEach(project => {
+      const newProjectElement = document.createElement('button');
+      newProjectElement.setAttribute('id', project.id);
+      newProjectElement.setAttribute('class', `project-btn`);
+
+      newProjectElement.textContent = project.name;
+
+      projectsDiv.appendChild(newProjectElement);
+
+      newProjectElement.addEventListener('click', () => {
+        displaySelectedProject(project.id);
+      })
+    })
+  }
+
   function hideProjectDetails() {
     currentProjectName.textContent = '';
     currentProjectDescription.textContent = '';
     newTaskBtn.setAttribute("style", "visibility: hidden")
+    editProjectBtn.setAttribute("style", "visibility: hidden")
     deleteProjectBtn.setAttribute("style", "visibility: hidden")
     taskList.textContent = '';
   }
@@ -171,6 +189,7 @@ const ScreenController = () => {
     currentProjectDescription.textContent = currentUser.getCurrentProject().description;
 
     newTaskBtn.setAttribute("style", "visibility: visible")
+    editProjectBtn.setAttribute("style", "visibility: visible")
     deleteProjectBtn.setAttribute("style", "visibility: visible")
 
     displayProjectTasks(currentUser.getCurrentProject());
@@ -178,18 +197,18 @@ const ScreenController = () => {
 
   function createTaskElement(task) {
     const newTaskElement = document.createElement('button');
-    const extraTaskInfo = document.createElement("p");
+    const expandedTask = document.createElement("p");
 
     newTaskElement.innerHTML = task.printBasicTaskInfo();
-    extraTaskInfo.innerHTML = task.printExtraTaskInfo();
+    expandedTask.innerHTML = task.printTaskDescription();
 
-    extraTaskInfo.classList.add("hide-extra-info");
+    expandedTask.classList.add("hide-description");
 
     newTaskElement.addEventListener('click', () => {
-      extraTaskInfo.classList.toggle("hide-extra-info");
+      expandedTask.classList.toggle("hide-description");
     });
 
-    newTaskElement.appendChild(extraTaskInfo);
+    newTaskElement.appendChild(expandedTask);
 
     return newTaskElement;
   }
@@ -232,6 +251,8 @@ const ScreenController = () => {
       const newTaskElement = createTaskElement(task);
       const editTaskButton = createEditTaskButton(task);
       const deleteTaskBtn = createDeleteTaskButton(task, project);
+
+      newTaskElement.classList.add(`${task.priority}`)
 
       newTaskContainer.append(newTaskElement, editTaskButton, deleteTaskBtn);
       taskList.appendChild(newTaskContainer);
