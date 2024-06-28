@@ -3,7 +3,6 @@ body {
   grid-template-columns: 2fr 5fr;
 }
 
-
 button:hover {
   cursor: pointer;
 }
@@ -48,7 +47,7 @@ button:hover {
   background-color: yellow;
 }
 
-.hide-description {
+.hide-content {
   display: none;
 }
 

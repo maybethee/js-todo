@@ -1,88 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo</title>
-</head>
-<body>
-  <div id="projects-container">
-    <button id="new-project">New Project</button>
-    <div id="projects"></div>
-  </div>
-
-  <dialog id="newProjectDialog">
-    <form>
-      <p>
-        <label>
-          Name:
-          <input type="text" id="projectName" name="projectName" minlength="1" />
-        </label>
-      </p>
-
-      <p>
-        <label>
-          Description:
-          <input type="textarea" id="projectDescription" name="projectDescription" />
-        </label>
-      </p>
-      <div>
-        <button id="cancelProjectBtn" value="cancel" formmethod="dialog">Cancel</button>
-        <button id="confirmProjectBtn" value="default">Confirm</button>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="newTaskDialog">
-    <form>
-      <p>
-        <label>
-          Title:
-          <input type="text" id="taskTitle" name="taskTitle" minlength="1" />
-        </label>
-      </p>
-
-      <p>
-        <label>
-          Description:
-          <input type="textarea" id="taskDescription" name="taskDescription" />
-        </label>
-      </p>
-
-      <p>
-        <label>
-          Due Date:
-          <input type="date" id="taskDueDate" name="taskDueDate" />
-        </label>
-      </p>
-
-      <p>
-        <label>
-          Priority:
-        </label>
-        <select id="taskPriority" name="taskPriority">
-          <option value="high">High</option>
-          <option value="med">Medium</option>
-          <option value="low">Low</option>
-        </select>
-      </p>
-
-      <div>
-        <button id="cancelTaskBtn" value="cancel" formmethod="dialog">Cancel</button>
-        <button id="confirmTaskBtn" value="default">Confirm</button>
-      </div>
-    </form>
-  </dialog>
-  
-  <div id="tasks-container">
-    <div id="tasks-header">
-      <h2 id="current-project-name"></h2>
-      <p id="current-project-description"></p>
-      <button id="new-task">New Task</button>
-      <button id="edit-project">Edit Project Details</button>
-      <button id="delete-project">Delete Project</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+  </head>
+  <body>
+    <div id="projects-container">
+      <button id="new-project">New Project</button>
+      <div id="projects"></div>
     </div>
-    <div id="task-list"></div>
-  </div>
-</body>
+
+    <dialog id="newProjectDialog">
+      <form>
+        <p>
+          <label>
+            Name:
+            <input
+              type="text"
+              id="projectName"
+              name="projectName"
+              minlength="1"
+            />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Description:
+            <input
+              type="textarea"
+              id="projectDescription"
+              name="projectDescription"
+            />
+          </label>
+        </p>
+        <div>
+          <button id="cancelProjectBtn" value="cancel" formmethod="dialog">
+            Cancel
+          </button>
+          <button id="confirmProjectBtn" value="default">Confirm</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="newTaskDialog">
+      <form>
+        <p>
+          <label>
+            Title:
+            <input type="text" id="taskTitle" name="taskTitle" minlength="1" />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Description:
+            <input
+              type="textarea"
+              id="taskDescription"
+              name="taskDescription"
+            />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Date:
+            <input type="date" id="taskDueDate" name="taskDueDate" />
+          </label>
+        </p>
+
+        <p>
+          <label> Priority: </label>
+          <select id="taskPriority" name="taskPriority">
+            <option value="high">High</option>
+            <option value="med">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </p>
+
+        <div>
+          <button id="cancelTaskBtn" value="cancel" formmethod="dialog">
+            Cancel
+          </button>
+          <button id="confirmTaskBtn" value="default">Confirm</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="tasks-container">
+      <div id="tasks-header">
+        <h2 id="current-project-name"></h2>
+        <p id="current-project-description"></p>
+        <button id="new-task">New Task</button>
+        <button id="edit-project">Edit Project Details</button>
+        <button id="delete-project">Delete Project</button>
+      </div>
+      <div id="task-list"></div>
+    </div>
+  </body>
 </html>
