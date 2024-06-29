@@ -74,7 +74,6 @@ const User = () => {
 };
 
 const Project = (name, description, id) => {
-  let newTaskId = 1;
   const tasks = [];
 
   function addTask(formData) {
@@ -83,8 +82,7 @@ const Project = (name, description, id) => {
       formData.title,
       formData.description,
       formData.dueDate,
-      formData.priority,
-      newTaskId++
+      formData.priority
     );
 
     this.tasks.push(newTask);

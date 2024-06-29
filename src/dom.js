@@ -2,9 +2,8 @@ import { User } from "./app";
 import "./style.css";
 
 const ScreenController = () => {
-  const currentUser = User();
-
   // DOM elements
+  const currentUser = User();
   const taskList = document.querySelector("#task-list");
   const projectsDiv = document.querySelector("#projects");
   const newProjectBtn = document.querySelector("#new-project");
@@ -73,7 +72,7 @@ const ScreenController = () => {
       currentUser.getCurrentProject().addTask(getTaskFormInfo());
     }
 
-    screen.displayProjectTasks(currentUser.getCurrentProject());
+    displayProjectTasks(currentUser.getCurrentProject());
 
     taskBeingEdited = null;
     clearFormFields();
@@ -280,4 +279,4 @@ const ScreenController = () => {
   };
 };
 
-const screen = ScreenController();
+ScreenController();
