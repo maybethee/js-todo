@@ -3,7 +3,8 @@ import "./style.css";
 
 const ScreenController = () => {
   // DOM elements
-  const currentUser = User();
+  let currentUser = User.loadFromLocalStorage();
+
   const taskList = document.querySelector("#task-list");
   const projectsDiv = document.querySelector("#projects");
   const newProjectBtn = document.querySelector("#new-project");
@@ -40,6 +41,7 @@ const ScreenController = () => {
     // if there is an existing project passed, edit using the form info
     if (projectBeingEdited) {
       projectBeingEdited.editProjectInfo(getProjectFormInfo());
+      currentUser.saveToLocalStorage();
     } else {
       currentUser.addProject(getProjectFormInfo());
       // sets current project to new project
@@ -50,6 +52,8 @@ const ScreenController = () => {
     projectsDiv.textContent = "";
     displayProjects(currentUser.projects);
     displaySelectedProject(currentUser.getCurrentProject().id);
+
+    currentUser.saveToLocalStorage();
 
     projectBeingEdited = null;
     clearFormFields();
@@ -68,11 +72,14 @@ const ScreenController = () => {
     // if there is an existing task passed, edit using the form info
     if (taskBeingEdited) {
       taskBeingEdited.editTaskInfo(getTaskFormInfo());
+      currentUser.saveToLocalStorage();
     } else {
       currentUser.getCurrentProject().addTask(getTaskFormInfo());
     }
 
     displayProjectTasks(currentUser.getCurrentProject());
+
+    currentUser.saveToLocalStorage();
 
     taskBeingEdited = null;
     clearFormFields();
@@ -112,6 +119,8 @@ const ScreenController = () => {
     } else {
       hideProjectDetails();
     }
+
+    currentUser.saveToLocalStorage();
   });
 
   // form info functions
@@ -245,6 +254,7 @@ const ScreenController = () => {
     deleteTaskBtn.addEventListener("click", () => {
       project.deleteTask(task.id);
       displaySelectedProject(project.id);
+      currentUser.saveToLocalStorage();
     });
     return deleteTaskBtn;
   }
