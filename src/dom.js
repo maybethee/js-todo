@@ -3,8 +3,6 @@ import "./style.css";
 
 const ScreenController = () => {
   // DOM elements
-  let currentUser = User.loadFromLocalStorage();
-
   const taskList = document.querySelector("#task-list");
   const projectsDiv = document.querySelector("#projects");
   const newProjectBtn = document.querySelector("#new-project");
@@ -277,8 +275,18 @@ const ScreenController = () => {
   }
 
   // set up initial default display
-  displayProjects(currentUser.projects);
-  displaySelectedProject(currentUser.getCurrentProject().id);
+  let currentUser = User.loadFromLocalStorage();
+
+  // (prevents error when page reloads after deleting all projects)
+  if (currentUser.projects.length > 0) {
+    displayProjects(currentUser.projects);
+    displaySelectedProject(currentUser.getCurrentProject().id);
+  } else {
+    // don't show these if user has no projects to interact with
+    newTaskBtn.setAttribute("style", "visibility: hidden");
+    editProjectBtn.setAttribute("style", "visibility: hidden");
+    deleteProjectBtn.setAttribute("style", "visibility: hidden");
+  }
 
   return {
     taskList,

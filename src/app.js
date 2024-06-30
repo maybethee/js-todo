@@ -60,7 +60,7 @@ class User {
       this.newProjectId++
     );
     this.projects.push(defaultProject);
-    this.setCurrentProject(1);
+    this.setCurrentProject(this.newProjectId);
   }
 
   saveToLocalStorage() {
@@ -75,10 +75,12 @@ class User {
   static loadFromLocalStorage() {
     const data = JSON.parse(localStorage.getItem("user"));
     const currentUser = new User();
+
     currentUser.newProjectId = data.newProjectId;
     currentUser.projects = data.projects.map((projectData) =>
       Project.loadFromData(projectData)
     );
+
     currentUser.currentProjectId = data.currentProjectId;
     return currentUser;
   }
