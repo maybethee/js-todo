@@ -1,7 +1,89 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/* prettier-ignore */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+/* prettier-ignore */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+dialog[open] {
+  transform: translate(-50%, -50%);
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  transition: transform 0.3s ease-in-out;
+  margin: 0;
+  padding: 20px;
+}
+
+@starting-style {
+  dialog[open] {
+    transform: translate(-50%, -150%);
+  }
+}
+
 #page-contents {
   display: grid;
-  grid-template-columns: 2fr 5fr;
+  grid-template-columns: 1.5fr 5fr;
   height: 100vh;
+}
+
+#page-header {
+  font-size: 3rem;
+  text-align: center;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 button:hover {
@@ -10,14 +92,63 @@ button:hover {
 
 #projects-container {
   display: grid;
-  grid-template-rows: 1fr 10fr;
-  background-color: lightcoral;
+  grid-template-rows: 2fr 0.5fr 10fr;
+}
+
+#new-project {
+  /* max-width: 200px; */
+  /* place-self: center; */
+  justify-self: center;
+  /* margin-left: 1rem; */
+  padding: 1rem;
+  border-radius: 50px;
+}
+
+#new-project:active {
+  /* left: 1rem; */
+  /* scale: 1rem; */
+  transform: scale(0.9);
+}
+
+#projects {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  margin-top: 1rem;
+}
+
+#new-project {
+  background-color: var(--accent);
+  color: var(--primary);
+  border: var(--primary) solid;
+}
+
+#projects > button {
+  display: block;
+  flex: 1 100%;
+  font-size: 1rem;
+  padding: 0.5rem 0.5rem;
+  text-align: left;
+  border: none;
+}
+
+#projects > button:hover {
+  font-style: italic;
+}
+
+#projects > button:active {
+  transform: scaleY(0.8);
 }
 
 #tasks-container {
-  background-color: lightcyan;
   display: grid;
   grid-template-rows: 1fr 10fr;
+}
+
+.task-container > button {
+  border: none;
+  width: 100%;
+  text-align: left;
 }
 
 #task-list {
@@ -27,7 +158,6 @@ button:hover {
 }
 
 #task-list {
-  background-color: #fafad2;
   border: none;
   text-align: left;
   vertical-align: top;
@@ -36,22 +166,211 @@ button:hover {
   justify-content: flex-start;
 }
 
-.high {
-  background-color: red;
-}
-
-.med {
-  background-color: orange;
-}
-
-.low {
-  background-color: yellow;
-}
-
 .hide-content {
   display: none;
 }
 
-.delete-task-btn {
-  color: red;
+@media (prefers-color-scheme: light) {
+  :root {
+    --text: #0d0d02;
+    --background: #fcfdf2;
+
+    --background-50: #fafce9;
+    --background-100: #f5f8d3;
+    --background-200: #ebf1a7;
+    --background-300: #e1ea7b;
+
+    --secondary-50: #eafbee;
+    --secondary-100: #d4f7de;
+    --secondary-200: #a9efbd;
+    --secondary-300: #7ee79c;
+    --secondary-400: #54de7b;
+    --secondary-500: #29d65a;
+    --secondary-600: #21ab48;
+    --secondary-700: #188136;
+    --secondary-800: #105624;
+    --secondary-900: #082b12;
+    --secondary-950: #041509;
+
+    --primary: #d6d936;
+    --secondary: #87e8a3;
+    --accent: #5ddfb6;
+
+    --low-priority: #a8e8d2;
+    --medium-priority: #e5e07b;
+    --high-priority: #e54f4f;
+  }
+
+  h1,
+  h2,
+  p,
+  dialog,
+  input,
+  select {
+    background-color: var(--background);
+    color: var(--text);
+  }
+
+  button {
+    background-color: var(--background);
+    border-color: var(--secondary-800);
+    color: var(--text);
+  }
+
+  #tasks-header button:hover,
+  dialog button:hover {
+    background-color: var(--primary);
+  }
+
+  #projects-container {
+    background-color: var(--background-50);
+  }
+
+  #new-project {
+    background-color: var(--secondary);
+    color: var(--text);
+  }
+
+  #new-project:hover {
+    background-color: var(--accent);
+  }
+
+  #projects > button {
+    background-color: var(--background-50);
+  }
+
+  #projects > button:hover {
+    background-color: var(--secondary-200);
+    border-left: solid 5px var(--secondary-100);
+  }
+
+  #page-header,
+  #tasks-header,
+  #task-list {
+    background-color: var(--background);
+  }
+
+  .high {
+    background-color: var(--high-priority);
+  }
+
+  .med {
+    background-color: var(--medium-priority);
+  }
+
+  .low {
+    background-color: var(--low-priority);
+  }
+
+  .delete-task-btn {
+    background-color: var(--background);
+    color: var(--high-priority);
+  }
+
+  .delete-task-btn:hover {
+    background-color: var(--high-priority);
+    color: var(--background);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e8f9e1;
+
+    --background: #050802;
+    --background-50: #151603;
+    --background-100: #292c07;
+    --background-200: #52580e;
+
+    --primary: #65ca2b;
+
+    --secondary: #177832;
+    --secondary-50: #041509;
+    --secondary-100: #082b12;
+    --secondary-200: #105624;
+    --secondary-300: #188136;
+    --secondary-400: #21ab48;
+    --secondary-500: #29d65a;
+    --secondary-600: #54de7b;
+    --secondary-700: #7ee79c;
+    --secondary-800: #a9efbd;
+    --secondary-900: #d4f7de;
+    --secondary-950: #eafbee;
+
+    --accent: #2254a0;
+
+    --low-priority: #1a4730;
+    --medium-priority: #7f7c18;
+    --high-priority: #7c1c1c;
+  }
+
+  h1,
+  h2,
+  p,
+  dialog,
+  input,
+  select {
+    background-color: var(--background);
+    color: var(--text);
+  }
+
+  button {
+    background-color: var(--background);
+    border-color: var(--secondary-800);
+    color: var(--text);
+  }
+
+  #tasks-header button:hover,
+  dialog button:hover {
+    background-color: var(--primary);
+  }
+
+  #projects-container {
+    background-color: var(--background-50);
+  }
+
+  #new-project {
+    background-color: var(--secondary);
+    color: var(--text);
+  }
+
+  #new-project:hover {
+    background-color: var(--accent);
+  }
+
+  #projects > button {
+    background-color: var(--background-50);
+  }
+
+  #projects > button:hover {
+    background-color: var(--secondary-200);
+    border-left: solid 5px var(--secondary-100);
+  }
+
+  #page-header,
+  #tasks-header,
+  #task-list {
+    background-color: var(--background);
+  }
+
+  .high {
+    background-color: var(--high-priority);
+  }
+
+  .med {
+    background-color: var(--medium-priority);
+  }
+
+  .low {
+    background-color: var(--low-priority);
+  }
+
+  .delete-task-btn {
+    background-color: var(--text);
+    color: var(--high-priority);
+  }
+
+  .delete-task-btn:hover {
+    background-color: var(--high-priority);
+    color: var(--text);
+  }
 }

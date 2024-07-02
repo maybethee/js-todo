@@ -97,28 +97,30 @@ const ScreenController = () => {
   });
 
   deleteProjectBtn.addEventListener("click", () => {
-    // delete project from array
-    currentUser.deleteProject(currentUser.getCurrentProject().id);
+    if (confirm("Do you really want to delete this project?")) {
+      // delete project from array
+      currentUser.deleteProject(currentUser.getCurrentProject().id);
 
-    // change current project to first project
-    if (currentUser.projects.length >= 1) {
-      currentUser.setCurrentProject(currentUser.projects[0].id);
-    } else {
-      // if no more projects, set current to null
-      currentUser.setCurrentProject(null);
+      // change current project to first project
+      if (currentUser.projects.length >= 1) {
+        currentUser.setCurrentProject(currentUser.projects[0].id);
+      } else {
+        // if no more projects, set current to null
+        currentUser.setCurrentProject(null);
+      }
+
+      // update projects list
+      displayProjects(currentUser.projects);
+
+      // show remaining current project if one exists
+      if (currentUser.getCurrentProject()) {
+        displaySelectedProject(currentUser.getCurrentProject().id);
+      } else {
+        hideProjectDetails();
+      }
+
+      currentUser.saveToLocalStorage();
     }
-
-    // update projects list
-    displayProjects(currentUser.projects);
-
-    // show remaining current project if one exists
-    if (currentUser.getCurrentProject()) {
-      displaySelectedProject(currentUser.getCurrentProject().id);
-    } else {
-      hideProjectDetails();
-    }
-
-    currentUser.saveToLocalStorage();
   });
 
   // form info functions
@@ -217,6 +219,7 @@ const ScreenController = () => {
     expandedTask.classList.add("hide-content");
     editTaskButton.classList.add("hide-content");
     deleteTaskBtn.classList.add("hide-content");
+    deleteTaskBtn.classList.add("delete-task-btn");
 
     newTaskElement.addEventListener("click", () => {
       expandedTask.classList.toggle("hide-content");
