@@ -291,6 +291,22 @@ const ScreenController = () => {
     deleteProjectBtn.setAttribute("style", "visibility: hidden");
   }
 
+  (function dropdown() {
+    const dropdownItems = document.querySelectorAll(".dropdown-item");
+    const dropdownContainer = document.querySelector(
+      "#project-options-container"
+    );
+    const dropdownContents = document.querySelector(".dropdown-contents");
+
+    dropdownContainer.addEventListener("click", () => {
+      dropdownContents.classList.toggle("hide-content");
+
+      dropdownItems.forEach((item) => {
+        item.classList.toggle("hide-content");
+      });
+    });
+  })();
+
   return {
     taskList,
     newTaskBtn,

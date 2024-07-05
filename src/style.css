@@ -92,7 +92,7 @@ button:hover {
 
 #projects-container {
   display: grid;
-  grid-template-rows: 2fr 0.5fr 10fr;
+  grid-template-rows: 1fr 0.25fr 10fr;
 }
 
 #new-project {
@@ -217,7 +217,6 @@ button:hover {
     color: var(--text);
   }
 
-  #tasks-header button:hover,
   dialog button:hover {
     background-color: var(--primary);
   }
@@ -245,7 +244,6 @@ button:hover {
   }
 
   #page-header,
-  #tasks-header,
   #task-list {
     background-color: var(--background);
   }
@@ -319,7 +317,6 @@ button:hover {
     color: var(--text);
   }
 
-  #tasks-header button:hover,
   dialog button:hover {
     background-color: var(--primary);
   }
@@ -347,7 +344,6 @@ button:hover {
   }
 
   #page-header,
-  #tasks-header,
   #task-list {
     background-color: var(--background);
   }
