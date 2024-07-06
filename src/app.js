@@ -57,10 +57,15 @@ class User {
     const defaultProject = new Project(
       "Personal",
       "Your first project",
-      this.newProjectId++
+      this.newProjectId
     );
     this.projects.push(defaultProject);
     this.setCurrentProject(this.newProjectId);
+    this.newProjectId++;
+    console.log(
+      "Current project id after adding default project:",
+      this.currentProjectId
+    );
   }
 
   saveToLocalStorage() {
@@ -74,6 +79,12 @@ class User {
 
   static loadFromLocalStorage() {
     const data = JSON.parse(localStorage.getItem("user"));
+
+    // If there's no data in local storage, return a new User instance
+    if (!data) {
+      return new User();
+    }
+
     const currentUser = new User();
 
     currentUser.newProjectId = data.newProjectId;
@@ -82,6 +93,16 @@ class User {
     );
 
     currentUser.currentProjectId = data.currentProjectId;
+
+    // If there are no projects, add a default one
+    if (currentUser.projects.length === 0) {
+      currentUser.addDefaultProject();
+    }
+    console.log(
+      "Current project id after loading from local storage:",
+      currentUser.currentProjectId
+    );
+
     return currentUser;
   }
 }

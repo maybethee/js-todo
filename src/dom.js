@@ -19,6 +19,9 @@ const ScreenController = () => {
   const currentProjectDescription = document.querySelector(
     "#current-project-description"
   );
+  const dropdownItems = document.querySelectorAll(".dropdown-item");
+  const dropdownBtn = document.querySelector(".dropdown-btn");
+  const dropdownContents = document.querySelector(".dropdown-contents");
 
   let taskBeingEdited = null;
   let projectBeingEdited = null;
@@ -183,8 +186,7 @@ const ScreenController = () => {
     currentProjectName.textContent = "";
     currentProjectDescription.textContent = "";
     newTaskBtn.setAttribute("style", "visibility: hidden");
-    editProjectBtn.setAttribute("style", "visibility: hidden");
-    deleteProjectBtn.setAttribute("style", "visibility: hidden");
+    dropdownBtn.setAttribute("style", "visibility: hidden");
     taskList.textContent = "";
   }
 
@@ -198,9 +200,7 @@ const ScreenController = () => {
       currentUser.getCurrentProject().description;
 
     newTaskBtn.setAttribute("style", "visibility: visible");
-    editProjectBtn.setAttribute("style", "visibility: visible");
-    deleteProjectBtn.setAttribute("style", "visibility: visible");
-
+    dropdownBtn.setAttribute("style", "visibility: visible");
     displayProjectTasks(currentUser.getCurrentProject());
   }
 
@@ -236,7 +236,6 @@ const ScreenController = () => {
     const editTaskBtn = document.createElement("button");
     editTaskBtn.innerHTML = "EDIT";
 
-    console.log(`${task.id}`);
     editTaskBtn.setAttribute("id", `${task.id}`);
 
     editTaskBtn.addEventListener("click", () => {
@@ -277,6 +276,34 @@ const ScreenController = () => {
     });
   }
 
+  dropdownBtn.addEventListener("click", (event) => {
+    dropdownContents.classList.toggle("hide-content");
+    dropdownItems.forEach((item) => {
+      item.classList.toggle("hide-content");
+    });
+    event.stopPropagation();
+  });
+
+  dropdownItems.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      dropdownContents.classList.add("hide-content");
+      dropdownItems.forEach((item) => {
+        item.classList.add("hide-content");
+      });
+      event.stopPropagation();
+    });
+  });
+
+  // hides dropdown menu buttons after another click
+  document.addEventListener("click", () => {
+    if (!dropdownContents.classList.contains("hide-content")) {
+      dropdownContents.classList.add("hide-content");
+      dropdownItems.forEach((item) => {
+        item.classList.add("hide-content");
+      });
+    }
+  });
+
   // set up initial default display
   let currentUser = User.loadFromLocalStorage();
 
@@ -287,25 +314,8 @@ const ScreenController = () => {
   } else {
     // don't show these if user has no projects to interact with
     newTaskBtn.setAttribute("style", "visibility: hidden");
-    editProjectBtn.setAttribute("style", "visibility: hidden");
-    deleteProjectBtn.setAttribute("style", "visibility: hidden");
+    dropdownBtn.setAttribute("style", "visibility: hidden");
   }
-
-  (function dropdown() {
-    const dropdownItems = document.querySelectorAll(".dropdown-item");
-    const dropdownContainer = document.querySelector(
-      "#project-options-container"
-    );
-    const dropdownContents = document.querySelector(".dropdown-contents");
-
-    dropdownContainer.addEventListener("click", () => {
-      dropdownContents.classList.toggle("hide-content");
-
-      dropdownItems.forEach((item) => {
-        item.classList.toggle("hide-content");
-      });
-    });
-  })();
 
   return {
     taskList,
