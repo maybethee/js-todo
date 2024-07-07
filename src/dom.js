@@ -171,13 +171,15 @@ const ScreenController = () => {
       const newProjectElement = document.createElement("button");
       newProjectElement.setAttribute("id", project.id);
       newProjectElement.setAttribute("class", `project-btn`);
+      newProjectElement.classList.remove("active");
 
       newProjectElement.textContent = project.name;
 
       projectsDiv.appendChild(newProjectElement);
 
       newProjectElement.addEventListener("click", () => {
-        displaySelectedProject(project.id);
+        // displaySelectedProject(project.id);
+        displaySelectedProject(project.id, newProjectElement);
       });
     });
   }
@@ -190,8 +192,24 @@ const ScreenController = () => {
     taskList.textContent = "";
   }
 
-  function displaySelectedProject(projectId) {
+  function displaySelectedProject(projectId, projectEl = null) {
     currentUser.setCurrentProject(projectId);
+
+    // specific project button clicked
+    if (projectEl) {
+      // console.log(projectsDiv.childNodes);
+
+      projectsDiv.childNodes.forEach((project) => {
+        project.classList.remove("active");
+      });
+      projectEl.classList.toggle("active");
+    } else {
+      // console.log("current project id", currentUser.getCurrentProjectId());
+      // make "default" project active
+      projectsDiv.childNodes[
+        currentUser.getCurrentProjectId()
+      ].classList.toggle("active");
+    }
 
     // fill display element with selected project information
     currentProjectName.textContent = currentUser.getCurrentProject().name;
@@ -205,7 +223,8 @@ const ScreenController = () => {
   }
 
   function createTaskElement(task) {
-    const newTaskElement = document.createElement("button");
+    const newTaskElement = document.createElement("div");
+    const newTaskInfo = document.createElement("p");
     const expandedTask = document.createElement("p");
     const editTaskButton = createEditTaskButton(task);
     const deleteTaskBtn = createDeleteTaskButton(
@@ -213,11 +232,15 @@ const ScreenController = () => {
       currentUser.getCurrentProject()
     );
 
-    newTaskElement.innerHTML = task.printBasicTaskInfo();
+    newTaskElement.classList.add("task");
+
+    newTaskInfo.innerHTML = task.printBasicTaskInfo();
     expandedTask.innerHTML = task.printTaskDescription();
 
     expandedTask.classList.add("hide-content");
+    editTaskButton.classList.add("edit-task-btn");
     editTaskButton.classList.add("hide-content");
+    deleteTaskBtn.classList.add("delete-task-btn");
     deleteTaskBtn.classList.add("hide-content");
     deleteTaskBtn.classList.add("delete-task-btn");
 
@@ -227,7 +250,8 @@ const ScreenController = () => {
       deleteTaskBtn.classList.toggle("hide-content");
     });
 
-    newTaskElement.append(expandedTask, editTaskButton, deleteTaskBtn);
+    newTaskElement.prepend(editTaskButton, deleteTaskBtn);
+    newTaskElement.append(newTaskInfo, expandedTask);
 
     return newTaskElement;
   }

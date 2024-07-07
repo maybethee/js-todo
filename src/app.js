@@ -18,6 +18,12 @@ class User {
     );
   }
 
+  getCurrentProjectId() {
+    return this.projects.findIndex(
+      (projects) => projects.id === this.currentProjectId
+    );
+  }
+
   addProject(formData) {
     const newProject = new Project(
       formData.name,
@@ -62,10 +68,6 @@ class User {
     this.projects.push(defaultProject);
     this.setCurrentProject(this.newProjectId);
     this.newProjectId++;
-    console.log(
-      "Current project id after adding default project:",
-      this.currentProjectId
-    );
   }
 
   saveToLocalStorage() {
@@ -80,7 +82,7 @@ class User {
   static loadFromLocalStorage() {
     const data = JSON.parse(localStorage.getItem("user"));
 
-    // If there's no data in local storage, return a new User instance
+    // return a new User when no saved data found
     if (!data) {
       return new User();
     }
@@ -94,14 +96,9 @@ class User {
 
     currentUser.currentProjectId = data.currentProjectId;
 
-    // If there are no projects, add a default one
     if (currentUser.projects.length === 0) {
       currentUser.addDefaultProject();
     }
-    console.log(
-      "Current project id after loading from local storage:",
-      currentUser.currentProjectId
-    );
 
     return currentUser;
   }
