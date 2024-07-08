@@ -197,15 +197,12 @@ const ScreenController = () => {
 
     // specific project button clicked
     if (projectEl) {
-      // console.log(projectsDiv.childNodes);
-
       projectsDiv.childNodes.forEach((project) => {
         project.classList.remove("active");
       });
       projectEl.classList.toggle("active");
     } else {
-      // console.log("current project id", currentUser.getCurrentProjectId());
-      // make "default" project active
+      // make default project active
       projectsDiv.childNodes[
         currentUser.getCurrentProjectId()
       ].classList.toggle("active");

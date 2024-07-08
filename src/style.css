@@ -30,7 +30,10 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
-body {
+body,
+button,
+input,
+textarea {
   line-height: 1;
   font-family: "PT Sans", sans-serif;
 }
@@ -60,18 +63,69 @@ dialog[open] {
 
 dialog {
   position: fixed;
+  max-width: auto;
+  max-height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -150%);
   transition: transform 0.3s ease-in-out;
   margin: 0;
-  padding: 20px;
+  padding: 1.3rem;
+  border-radius: 12px;
 }
 
 @starting-style {
   dialog[open] {
     transform: translate(-50%, -150%);
   }
+}
+
+dialog button {
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  margin-top: 0.2rem;
+}
+
+dialog button:first-of-type {
+  margin-right: 0.5rem;
+}
+
+form,
+form p {
+  display: grid;
+}
+
+form {
+  gap: 1rem;
+}
+
+form p {
+  grid-template-columns: auto auto;
+  justify-content: left;
+}
+
+form div {
+  justify-self: right;
+}
+
+label {
+  width: 110px;
+  text-align: left;
+  padding-right: 0.5rem;
+}
+
+form input,
+form textarea,
+form select {
+  border-radius: 5px;
+}
+
+textarea {
+  font-size: 0.9rem;
+  resize: none;
+  padding: 10px;
+  max-width: 100%;
+  line-height: 1.5;
 }
 
 #page-contents {
@@ -152,15 +206,15 @@ button:hover {
   border: none;
   text-align: left;
 }
-
-#task-list {
-  padding: 0rem 8rem 0rem 5rem;
-}
-
 #tasks-header {
   display: grid;
   gap: 1rem;
-  padding: 2rem 8rem 2rem 5rem;
+  padding: 2rem 8rem 2rem 0rem;
+}
+
+#tasks-header,
+#task-list-wrapper {
+  margin-left: 15rem;
 }
 
 #project-options-container {
@@ -174,7 +228,7 @@ button:hover {
   border: none;
   font-size: 1.2rem;
   border-radius: 50px;
-  padding: 0.1rem 0.6rem;
+  padding: 0.2rem 0.6rem;
   margin-bottom: 0.2rem;
 }
 
@@ -186,9 +240,6 @@ button:hover {
   display: grid;
   border-radius: 8px;
   padding: 0.7rem 0rem;
-  /* box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
-    0 0 0 1px hsla(0, 0%, 0%, 0.05), 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
-    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09); */
 }
 
 .dropdown-contents button {
@@ -207,6 +258,7 @@ button:hover {
 
 #current-project-name {
   font-size: 3rem;
+  font-weight: 700;
 }
 
 #current-project-description {
@@ -218,13 +270,17 @@ button:hover {
 #new-task {
   width: 6rem;
   padding: 0.4rem;
-  justify-self: right;
-  margin: 3rem calc(1em + 2vw) 0rem 0rem;
+  justify-self: left;
+  margin: 3rem calc(1em + 2vw) 2rem 0rem;
   border-radius: 25px;
 }
 
+#new-project,
+#new-task {
+  font-weight: 700;
+}
+
 #task-list {
-  font-family: ;
   border: none;
   text-align: left;
   vertical-align: top;
@@ -242,8 +298,21 @@ button:hover {
   gap: 1rem;
 }
 
+.task-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .task p {
   width: 100%;
+  padding-left: 0.4rem;
+  line-height: 1.2;
+  font-size: 0.9rem;
+}
+
+.task p:first-of-type {
+  line-height: 1.5;
+  font-size: 1rem;
 }
 
 .edit-task-btn,
@@ -297,9 +366,24 @@ button:hover {
   p,
   dialog,
   input,
+  textarea,
   select {
     background-color: var(--background);
     color: var(--text);
+  }
+
+  dialog,
+  input,
+  textarea,
+  select {
+    border-color: var(--secondary-500);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--secondary-800);
   }
 
   button {
@@ -308,7 +392,7 @@ button:hover {
     color: var(--text);
   }
 
-  #tasks-header button:hover,
+  #tasks-container button:not(.delete-task-btn):hover,
   dialog button:hover {
     background-color: var(--secondary);
   }
@@ -340,7 +424,7 @@ button:hover {
     font-style: italic;
   }
 
-  #tasks-header,
+  #tasks-container,
   #task-list,
   .dropdown-contents {
     background-color: var(--background);
@@ -416,9 +500,24 @@ button:hover {
   p,
   dialog,
   input,
+  textarea,
   select {
     background-color: var(--background);
     color: var(--text);
+  }
+
+  dialog,
+  input,
+  textarea,
+  select {
+    border-color: var(--secondary-500);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--secondary-800);
   }
 
   button {
@@ -427,7 +526,7 @@ button:hover {
     color: var(--text);
   }
 
-  #tasks-header button:hover,
+  #tasks-container button:not(.delete-task-btn):hover,
   dialog button:hover {
     background-color: var(--secondary);
   }
@@ -459,7 +558,7 @@ button:hover {
     font-style: italic;
   }
 
-  #tasks-header,
+  #tasks-container,
   #task-list,
   .dropdown-contents {
     background-color: var(--background);
