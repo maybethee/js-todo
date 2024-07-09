@@ -36,6 +36,7 @@ input,
 textarea {
   line-height: 1;
   font-family: "PT Sans", sans-serif;
+  font-size: 0.9rem;
 }
 ol,
 ul {
@@ -55,6 +56,11 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+body {
+  display: flex;
+  justify-content: flex-start;
 }
 
 dialog[open] {
@@ -96,7 +102,7 @@ form p {
 }
 
 form {
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 form p {
@@ -105,6 +111,7 @@ form p {
 }
 
 form div {
+  margin-top: 0.3rem;
   justify-self: right;
 }
 
@@ -121,16 +128,16 @@ form select {
 }
 
 textarea {
-  font-size: 0.9rem;
   resize: none;
   padding: 10px;
-  max-width: 100%;
   line-height: 1.5;
 }
 
 #page-contents {
+  flex: 1 100%;
   display: flex;
   align-items: flex-start;
+  width: 100vw;
 }
 
 #page-header {
@@ -176,7 +183,6 @@ button:hover {
   display: flex;
   flex-flow: row wrap;
   align-content: flex-start;
-  /* padding: 0 0 0 0.5rem; */
 }
 
 #projects > button {
@@ -197,7 +203,7 @@ button:hover {
 }
 
 #tasks-container {
-  flex: 1;
+  flex-grow: 1;
   display: grid;
   grid-template-rows: 1fr 10fr;
 }
@@ -206,15 +212,11 @@ button:hover {
   border: none;
   text-align: left;
 }
+
 #tasks-header {
   display: grid;
   gap: 1rem;
-  padding: 2rem 8rem 2rem 0rem;
-}
-
-#tasks-header,
-#task-list-wrapper {
-  margin-left: 15rem;
+  padding: 2rem 8rem 2rem 5rem;
 }
 
 #project-options-container {
@@ -245,13 +247,12 @@ button:hover {
 .dropdown-contents button {
   text-align: left;
   width: 160px;
-  padding: 0.25rem 1.5rem 0.25rem 1rem;
+  padding: 0.4rem 1.5rem 0.4rem 1rem;
   border: none;
 }
 
 #current-project-name,
 #current-project-description {
-  /* padding-left: 2rem; */
   text-align: left;
   justify-self: left;
 }
@@ -270,8 +271,7 @@ button:hover {
 #new-task {
   width: 6rem;
   padding: 0.4rem;
-  justify-self: left;
-  margin: 3rem calc(1em + 2vw) 2rem 0rem;
+  align-self: flex-start;
   border-radius: 25px;
 }
 
@@ -280,21 +280,26 @@ button:hover {
   font-weight: 700;
 }
 
-#task-list {
-  border: none;
+#task-list,
+#task-list-wrapper {
   text-align: left;
   vertical-align: top;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: start;
   gap: 2rem;
+}
+
+#task-list-wrapper {
+  margin: 3rem 0rem 3rem 3rem;
+  padding-top: 2rem;
 }
 
 .task {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
-  max-width: 30rem;
+  width: 60vw;
   gap: 1rem;
 }
 
@@ -307,12 +312,12 @@ button:hover {
   width: 100%;
   padding-left: 0.4rem;
   line-height: 1.2;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .task p:first-of-type {
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .edit-task-btn,
@@ -322,6 +327,31 @@ button:hover {
 
 .hide-content {
   display: none;
+}
+
+@media (min-width: 1200px) {
+  #current-project-name,
+  #current-project-description,
+  #new-task,
+  .task {
+    margin-left: 5rem;
+  }
+
+  #current-project-description {
+    width: 90%;
+  }
+
+  .task {
+    width: 56vw;
+  }
+
+  .task p {
+    font-size: 0.9rem;
+  }
+
+  .task p:first-of-type {
+    font-size: 1rem;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -361,6 +391,7 @@ button:hover {
     --dropdown-5: hsla(0, 0%, 0%, 0.09);
   }
 
+  body,
   h1,
   h2,
   p,
@@ -428,6 +459,10 @@ button:hover {
   #task-list,
   .dropdown-contents {
     background-color: var(--background);
+  }
+
+  #tasks-header {
+    box-shadow: 0px 25px 20px -20px var(--dropdown-5);
   }
 
   .dropdown-contents {
@@ -495,6 +530,7 @@ button:hover {
     --dropdown-5: hsla(0, 0%, 100%, 0.18);
   }
 
+  body,
   h1,
   h2,
   p,
@@ -562,6 +598,10 @@ button:hover {
   #task-list,
   .dropdown-contents {
     background-color: var(--background);
+  }
+
+  #tasks-header {
+    box-shadow: 0px 25px 20px -20px var(--dropdown-5);
   }
 
   .dropdown-contents {

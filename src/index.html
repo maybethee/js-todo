@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,6 +55,7 @@
             minlength="1"
           />
         </p>
+        <span class="error" aria-live="polite"></span>
 
         <p>
           <label for="projectDescription">Description:</label>
@@ -80,6 +81,8 @@
           <label for="taskTitle">Title:</label>
           <input type="text" id="taskTitle" name="taskTitle" minlength="1" />
         </p>
+
+        <span class="error" aria-live="polite"></span>
 
         <p>
           <label for="taskDescription">Description:</label>
