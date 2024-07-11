@@ -406,30 +406,20 @@ button:hover {
   }
 }
 
-/* invalid fields */
-input:invalid {
-  border-color: #900;
-  background-color: #fdd;
-}
-
-input:focus:invalid {
-  outline: none;
-}
-
 /* error messages */
 .error {
-  width: 100%;
+  width: calc(100% + 1px);
   padding: 0;
-
-  font-size: 80%;
-  color: white;
-  background-color: #900;
+  grid-column: 2;
+  font-size: 90%;
+  color: #e8f9e1;
   border-radius: 0 0 5px 5px;
 
   box-sizing: border-box;
 }
 
 .error.active {
+  margin-top: -0.2rem;
   padding: 0.3em;
 }
 
@@ -438,13 +428,16 @@ input:focus:invalid {
 @media (prefers-color-scheme: light) {
   :root {
     --text: #0d0d02;
-    --background: #fcfdf2;
 
+    --background: #fcfdf2;
     --background-50: #fafce9;
     --background-100: #f5f8d3;
     --background-200: #ebf1a7;
     --background-300: #e1ea7b;
 
+    --primary: #d6d936;
+
+    --secondary: #87e8a3;
     --secondary-50: #eafbee;
     --secondary-100: #d4f7de;
     --secondary-200: #a9efbd;
@@ -457,9 +450,18 @@ input:focus:invalid {
     --secondary-900: #082b12;
     --secondary-950: #041509;
 
-    --primary: #d6d936;
-    --secondary: #87e8a3;
     --accent: #5ddfb6;
+    --accent-50: #eafbf5;
+    --accent-100: #d4f7ec;
+    --accent-200: #aaeed9;
+    --accent-300: #7fe6c5;
+    --accent-400: #55ddb2;
+    --accent-500: #2ad59f;
+    --accent-600: #22aa7f;
+    --accent-700: #19805f;
+    --accent-800: #115540;
+    --accent-900: #082b20;
+    --accent-950: #041510;
 
     --low-priority: #a8e8d2;
     --medium-priority: #e5e07b;
@@ -478,7 +480,7 @@ input:focus:invalid {
   p,
   dialog,
   input,
-  .textarea-wrapper,
+  textarea,
   select {
     background-color: var(--background);
     color: var(--text);
@@ -534,7 +536,7 @@ input:focus:invalid {
   #projects > button:hover,
   #projects > button.current {
     background-color: var(--secondary-200);
-    border-left: solid 7px var(--secondary-100);
+    border-left: solid 5px var(--accent-500);
     font-style: italic;
   }
 
@@ -574,6 +576,10 @@ input:focus:invalid {
   .delete-task-btn:hover {
     background-color: var(--high-priority);
     color: var(--background);
+  }
+
+  .error {
+    background-color: var(--high-priority);
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -601,6 +607,17 @@ input:focus:invalid {
     --secondary-950: #eafbee;
 
     --accent: #2254a0;
+    --accent-50: #041510;
+    --accent-100: #082b20;
+    --accent-200: #115540;
+    --accent-300: #19805f;
+    --accent-400: #22aa7f;
+    --accent-500: #2ad59f;
+    --accent-600: #55ddb2;
+    --accent-700: #7fe6c5;
+    --accent-800: #aaeed9;
+    --accent-900: #d4f7ec;
+    --accent-950: #eafbf5;
 
     --low-priority: #1a4730;
     --medium-priority: #7f7c18;
@@ -619,7 +636,7 @@ input:focus:invalid {
   p,
   dialog,
   input,
-  .textarea-wrapper,
+  textarea,
   select {
     background-color: var(--background);
     color: var(--text);
@@ -675,7 +692,7 @@ input:focus:invalid {
   #projects > button:hover,
   #projects > button.current {
     background-color: var(--secondary-200);
-    border-left: solid 7px var(--secondary-100);
+    border-left: solid 5px var(--accent-500);
     font-style: italic;
   }
 
@@ -715,5 +732,9 @@ input:focus:invalid {
   .delete-task-btn:hover {
     background-color: var(--high-priority);
     color: var(--background);
+  }
+
+  .error {
+    background-color: var(--high-priority);
   }
 }

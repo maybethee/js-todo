@@ -2,9 +2,11 @@ import { User } from "./app";
 import "./style.css";
 
 const ScreenController = () => {
-  // DOM elements
+  // main page elements
   const taskList = document.querySelector("#task-list");
   const projectsDiv = document.querySelector("#projects");
+
+  // dialog related elements
   const newProjectBtn = document.querySelector("#new-project");
   const newProjectDialog = document.getElementById("newProjectDialog");
   const confirmProjectBtn = document.getElementById("confirmProjectBtn");
@@ -15,13 +17,23 @@ const ScreenController = () => {
   const newTaskDialog = document.getElementById("newTaskDialog");
   const confirmTaskBtn = document.getElementById("confirmTaskBtn");
   const cancelTaskBtn = document.getElementById("cancelTaskBtn");
+
+  // current project elements
   const currentProjectName = document.querySelector("#current-project-name");
   const currentProjectDescription = document.querySelector(
     "#current-project-description"
   );
+
+  // dropdown elements
   const dropdownItems = document.querySelectorAll(".dropdown-item");
   const dropdownBtn = document.querySelector(".dropdown-btn");
   const dropdownContents = document.querySelector(".dropdown-contents");
+
+  // error related elements
+  const taskTitleInput = document.getElementById("taskTitle");
+  const taskTitleError = document.querySelector("#taskTitle + span.error");
+  const projectNameInput = document.getElementById("projectName");
+  const projectNameError = document.querySelector("#projectName + span.error");
 
   let taskBeingEdited = null;
   let projectBeingEdited = null;
@@ -38,6 +50,16 @@ const ScreenController = () => {
   // dialog buttons
   confirmProjectBtn.addEventListener("click", (event) => {
     event.preventDefault();
+
+    // validate name field
+    if (!projectNameInput.value.trim()) {
+      projectNameError.classList.add("active");
+      projectNameError.textContent = "You need to enter a name.";
+      return;
+    } else {
+      projectNameError.textContent = "";
+      projectNameError.classList.remove("active");
+    }
 
     // if there is an existing project passed, edit using the form info
     if (projectBeingEdited) {
@@ -67,11 +89,23 @@ const ScreenController = () => {
 
   cancelProjectBtn.addEventListener("click", () => {
     projectBeingEdited = null;
+    projectNameError.textContent = "";
+    projectNameError.classList.remove("active");
     clearFormFields();
   });
 
   confirmTaskBtn.addEventListener("click", (event) => {
     event.preventDefault();
+
+    // validate title field
+    if (!taskTitleInput.value.trim()) {
+      taskTitleError.classList.add("active");
+      taskTitleError.textContent = "You need to enter a title.";
+      return;
+    } else {
+      taskTitleError.textContent = "";
+      taskTitleError.classList.remove("active");
+    }
 
     // if there is an existing task passed, edit using the form info
     if (taskBeingEdited) {
@@ -92,6 +126,8 @@ const ScreenController = () => {
 
   cancelTaskBtn.addEventListener("click", () => {
     taskBeingEdited = null;
+    taskTitleError.textContent = "";
+    taskTitleError.classList.remove("active");
     clearFormFields();
   });
 
@@ -202,7 +238,6 @@ const ScreenController = () => {
 
     // specific project button clicked
     if (projectEl) {
-      console.log("i was called with ProjectEl!");
       projectsDiv.childNodes.forEach((project) => {
         project.classList.remove("current");
       });

@@ -45,7 +45,7 @@
     </div>
 
     <dialog id="newProjectDialog">
-      <form>
+      <form novalidate>
         <p>
           <label for="projectName">Name:</label>
           <input
@@ -54,8 +54,8 @@
             name="projectName"
             minlength="1"
           />
+          <span class="error" aria-live="polite"></span>
         </p>
-        <span class="error" aria-live="polite"></span>
 
         <div class="form-description-row">
           <label for="projectDescription">Description:</label>
@@ -78,13 +78,12 @@
     </dialog>
 
     <dialog id="newTaskDialog">
-      <form>
+      <form novalidate>
         <p>
           <label for="taskTitle">Title:</label>
           <input type="text" id="taskTitle" name="taskTitle" minlength="1" />
+          <span class="error" aria-live="polite"></span>
         </p>
-
-        <span class="error" aria-live="polite"></span>
 
         <div class="form-description-row">
           <label for="taskDescription">Description:</label>
