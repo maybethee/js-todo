@@ -63,6 +63,8 @@ body {
   justify-content: flex-start;
 }
 
+/* dialog/form */
+
 dialog[open] {
   transform: translate(-50%, calc(-50% - 0.5px));
 }
@@ -158,6 +160,8 @@ button:hover {
   cursor: pointer;
 }
 
+/* left side */
+
 #projects-container {
   min-width: 300px;
   max-width: 400px;
@@ -202,12 +206,14 @@ button:hover {
 }
 
 #projects > button:hover {
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 #projects > button:active {
   transform: scaleY(0.8);
 }
+
+/* right side */
 
 #tasks-container {
   flex-grow: 1;
@@ -223,7 +229,7 @@ button:hover {
 #tasks-header {
   display: grid;
   gap: 1rem;
-  padding: 2rem 8rem 2rem 5rem;
+  padding: 2rem 8rem 2rem 3rem;
 }
 
 #project-options-container {
@@ -336,20 +342,24 @@ button:hover {
   display: none;
 }
 
-@media (min-width: 1200px) {
+/* tablet-sizes */
+@media (max-width: 1055px) {
+  #projects-container {
+    min-width: 200px;
+    max-width: 250px;
+  }
+
+  #tasks-header {
+    padding: 3rem;
+  }
+
   #current-project-name,
-  #current-project-description,
-  #new-task,
-  .task {
-    margin-left: 5rem;
-  }
-
   #current-project-description {
-    width: 90%;
+    width: 80%;
   }
 
   .task {
-    width: 56vw;
+    width: 50vw;
   }
 
   .task p {
@@ -360,6 +370,70 @@ button:hover {
     font-size: 1rem;
   }
 }
+
+/* wide-screen sizes */
+
+@media (min-width: 1200px) {
+  #projects-container {
+    flex: 1 0 auto;
+  }
+
+  #current-project-name,
+  #current-project-description,
+  #new-task,
+  .task {
+    margin-left: 5rem;
+  }
+
+  #tasks-header {
+    padding: 3rem;
+  }
+
+  #current-project-description {
+    width: 80%;
+  }
+
+  .task {
+    width: 50vw;
+  }
+
+  .task p {
+    font-size: 0.9rem;
+  }
+
+  .task p:first-of-type {
+    font-size: 1rem;
+  }
+}
+
+/* invalid fields */
+input:invalid {
+  border-color: #900;
+  background-color: #fdd;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+/* error messages */
+.error {
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
+}
+
+.error.active {
+  padding: 0.3em;
+}
+
+/* light/dark themes */
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -458,7 +532,7 @@ button:hover {
   }
 
   #projects > button:hover,
-  #projects > button.active {
+  #projects > button.current {
     background-color: var(--secondary-200);
     border-left: solid 7px var(--secondary-100);
     font-style: italic;
@@ -599,7 +673,7 @@ button:hover {
   }
 
   #projects > button:hover,
-  #projects > button.active {
+  #projects > button.current {
     background-color: var(--secondary-200);
     border-left: solid 7px var(--secondary-100);
     font-style: italic;

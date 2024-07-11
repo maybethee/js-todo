@@ -52,7 +52,10 @@ const ScreenController = () => {
     // refresh list of projects
     projectsDiv.textContent = "";
     displayProjects(currentUser.projects);
-    displaySelectedProject(currentUser.getCurrentProject().id);
+    displaySelectedProject(
+      currentUser.getCurrentProject().id,
+      projectsDiv.childNodes[currentUser.getCurrentProjectId()]
+    );
 
     currentUser.saveToLocalStorage();
 
@@ -117,7 +120,10 @@ const ScreenController = () => {
 
       // show remaining current project if one exists
       if (currentUser.getCurrentProject()) {
-        displaySelectedProject(currentUser.getCurrentProject().id);
+        displaySelectedProject(
+          currentUser.getCurrentProject().id,
+          projectsDiv.childNodes[currentUser.getCurrentProjectId()]
+        );
       } else {
         hideProjectDetails();
       }
@@ -171,14 +177,13 @@ const ScreenController = () => {
       const newProjectElement = document.createElement("button");
       newProjectElement.setAttribute("id", project.id);
       newProjectElement.setAttribute("class", `project-btn`);
-      newProjectElement.classList.remove("active");
+      newProjectElement.classList.remove("current");
 
       newProjectElement.textContent = project.name;
 
       projectsDiv.appendChild(newProjectElement);
 
       newProjectElement.addEventListener("click", () => {
-        // displaySelectedProject(project.id);
         displaySelectedProject(project.id, newProjectElement);
       });
     });
@@ -197,15 +202,11 @@ const ScreenController = () => {
 
     // specific project button clicked
     if (projectEl) {
+      console.log("i was called with ProjectEl!");
       projectsDiv.childNodes.forEach((project) => {
-        project.classList.remove("active");
+        project.classList.remove("current");
       });
-      projectEl.classList.toggle("active");
-    } else {
-      // make default project active
-      projectsDiv.childNodes[
-        currentUser.getCurrentProjectId()
-      ].classList.toggle("active");
+      projectEl.classList.toggle("current");
     }
 
     // fill display element with selected project information
@@ -330,8 +331,13 @@ const ScreenController = () => {
 
   // (prevents error when page reloads after deleting all projects)
   if (currentUser.projects.length > 0) {
+    console.log("user has projects");
     displayProjects(currentUser.projects);
     displaySelectedProject(currentUser.getCurrentProject().id);
+
+    projectsDiv.childNodes[currentUser.getCurrentProjectId()].classList.toggle(
+      "current"
+    );
   } else {
     // don't show these if user has no projects to interact with
     newTaskBtn.setAttribute("style", "visibility: hidden");
