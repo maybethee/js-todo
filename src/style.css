@@ -156,6 +156,10 @@ form select {
   padding: 1.5rem 0;
 }
 
+#page-header a {
+  text-decoration: none;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -235,10 +239,11 @@ button:hover {
 
 .dropdown-btn {
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   border-radius: 50px;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.8rem;
   margin-bottom: 0.2rem;
+  font-weight: 700;
 }
 
 .dropdown-contents {
@@ -380,11 +385,12 @@ button:hover {
 }
 
 #current-project-name,
-#current-project-description {
-  animation: moveDown 0.8s ease-in forwards;
+#current-project-description,
+.dropdown-btn {
+  animation: slideDown 0.8s ease-in forwards;
 }
 
-@keyframes moveDown {
+@keyframes slideDown {
   from {
     opacity: 0;
     transform: translateY(-50px);
@@ -397,10 +403,10 @@ button:hover {
 
 #new-task,
 .animatedTask {
-  animation: moveUp 0.8s ease-in forwards;
+  animation: slideUp 0.8s ease-in forwards;
 }
 
-@keyframes moveUp {
+@keyframes slideUp {
   from {
     opacity: 0;
     transform: translateY(50px);
@@ -567,10 +573,8 @@ dialog form div button {
   body,
   .overlay,
   svg,
-  h1,
   h2,
   p,
-  a,
   dialog,
   input,
   textarea,
@@ -628,10 +632,13 @@ dialog form div button {
   }
 
   #page-header,
+  #page-header a,
+  #page-header a:visited,
   #projects-container,
   .projects-header,
   #new-project {
     background-color: var(--background-50);
+    color: var(--text);
   }
 
   #new-project:hover {
@@ -745,10 +752,8 @@ dialog form div button {
   body,
   .overlay,
   svg,
-  h1,
   h2,
   p,
-  a,
   dialog,
   input,
   textarea,
@@ -806,10 +811,13 @@ dialog form div button {
   }
 
   #page-header,
+  #page-header a,
+  #page-header a:visited,
   #projects-container,
   .projects-header,
   #new-project {
     background-color: var(--background-50);
+    color: var(--text);
   }
 
   #new-project:hover {
