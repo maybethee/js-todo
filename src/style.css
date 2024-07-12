@@ -149,11 +149,11 @@ form select {
 }
 
 #page-header {
-  font-size: 3rem;
+  font-size: 3.5rem;
+  font-weight: 700;
   text-align: center;
   align-self: center;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  padding: 1.5rem 0;
 }
 
 button:hover {
@@ -181,13 +181,11 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  padding-top: 1rem;
 }
 
 .projects-header {
   font-size: 1.5rem;
-}
-
-.projects-header {
   padding-left: 1rem;
 }
 
@@ -207,10 +205,6 @@ button:hover {
   text-align: left;
   border: none;
   transform: translateX(-50px);
-}
-
-#projects > button:active {
-  transform: scaleY(0.85);
 }
 
 /* right side */
