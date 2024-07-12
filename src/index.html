@@ -12,11 +12,14 @@
     <title>Todo</title>
   </head>
   <body>
+    <div class="overlay"></div>
     <div id="page-contents">
       <div id="projects-container">
         <h1 id="page-header">TBD</h1>
-        <button id="new-project">+ New Project</button>
-        <h2 class="projects-header">Projects</h2>
+        <div class="projects-header-wrapper">
+          <h2 class="projects-header">Projects</h2>
+          <a href="#" id="new-project">+  </button>
+        </div>
         <div id="projects"></div>
       </div>
 
@@ -69,7 +72,7 @@
           </div>
         </div>
         <div>
-          <button id="cancelProjectBtn" value="cancel" formmethod="dialog">
+          <button id="cancelProjectBtn" class="cancelFormBtn" value="cancel" formmethod="dialog">
             Cancel
           </button>
           <button id="confirmProjectBtn" value="default">Confirm</button>
@@ -112,7 +115,7 @@
         </p>
 
         <div>
-          <button id="cancelTaskBtn" value="cancel" formmethod="dialog">
+          <button id="cancelTaskBtn" class="cancelFormBtn" value="cancel" formmethod="dialog">
             Cancel
           </button>
           <button id="confirmTaskBtn" value="default">Confirm</button>

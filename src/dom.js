@@ -37,6 +37,7 @@ const ScreenController = () => {
 
   let taskBeingEdited = null;
   let projectBeingEdited = null;
+  let isFirstLoad = true;
 
   // showModal buttons
   newProjectBtn.addEventListener("click", () => {
@@ -209,10 +210,21 @@ const ScreenController = () => {
   // other display functions
   function displayProjects(projectArr) {
     projectsDiv.textContent = "";
-    projectArr.forEach((project) => {
+    projectArr.forEach((project, index) => {
       const newProjectElement = document.createElement("button");
       newProjectElement.setAttribute("id", project.id);
       newProjectElement.setAttribute("class", `project-btn`);
+
+      if (isFirstLoad) {
+        newProjectElement.setAttribute("class", "project-btn animated");
+        newProjectElement.style.animationDelay = `${index * 0.06}s`;
+        newProjectElement.style.transform = "translateX(-70px)";
+      } else {
+        newProjectElement.setAttribute("class", "project-btn");
+        newProjectElement.style.transform = "none";
+      }
+
+      //remove any previously added current class
       newProjectElement.classList.remove("current");
 
       newProjectElement.textContent = project.name;
@@ -326,11 +338,22 @@ const ScreenController = () => {
 
       const newTaskElement = createTaskElement(task);
 
-      newTaskElement.classList.add(`${task.priority}`);
+      if (isFirstLoad) {
+        newTaskElement.setAttribute(
+          "class",
+          `task ${task.priority} animatedTask`
+        );
+        newTaskElement.style.transform = "translateY(50px)";
+      } else {
+        newTaskElement.classList.add(`${task.priority}`);
+        newTaskElement.style.transform = "none";
+      }
 
       newTaskContainer.appendChild(newTaskElement);
       taskList.appendChild(newTaskContainer);
     });
+    // set flag to false after first load (not on project-btn anim. because this gets loaded after)
+    isFirstLoad = false;
   }
 
   dropdownBtn.addEventListener("click", (event) => {
